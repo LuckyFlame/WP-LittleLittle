@@ -7,8 +7,8 @@
 - Admin Username: admin 
 - Admin Password: v*@$lfMDCYyHZh0YdM
 - Database Name: wp_little_db 
-- Repair Date: 01/03/2022
-- Future Completion Date: 01/05/2022
+- Repair Date: 01/06/2022
+- Future Completion Date: 01/09/2022
 
 *Note*: After plugin, remember to add foreign keys for 2 tables wp_ticket and wp_bill because not completely fixed yet.
 
