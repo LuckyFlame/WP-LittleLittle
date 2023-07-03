@@ -184,4 +184,153 @@ register_activation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'AddTabl
 /* Get Deactivation */
 register_deactivation_hook(ROOT__PLUGIN__FILE, array(ROOT__PLUGIN__CLASS, 'RemoveTable'));
 
+/* Admin Menu */
+
+add_action('admin_menu', 'AddContactMenu');
+add_action('admin_menu', 'AddEventMenu');
+add_action('admin_menu', 'AddTicketMenu');
+
+function AddContactMenu() {
+    add_menu_page(__('Contact', 'Contact'), 'Liên Hệ', 'manage_options', 'con_view', 'OPContactView');
+    add_submenu_page(null, __('Contact', 'Contact'), 'Xem', 'manage_options', 'con_detail', 'OPContactDetail');
+}
+
+function AddEventMenu() {
+    add_menu_page(__('Event', 'Event'), 'Sự Kiện', 'manage_options', 'eve_view', 'OPEventView');
+    add_submenu_page(null, __('Event', 'Event'), 'Thêm', 'manage_options', 'eve_create', 'OPEventCreate');
+    add_submenu_page(null, __('Event', 'Event'), 'Cập Nhật', 'manage_options', 'eve_update', 'OPEventUpdate');
+    add_submenu_page(null, __('Event', 'Event'), 'Chi Tiết', 'manage_options', 'eve_detail', 'OPEventDetail');
+}
+
+function AddTicketMenu() {
+    /* Ticket */
+    add_menu_page(__('Ticket', 'Ticket'), 'Vé', 'manage_options', 'tic_view', '');
+    add_submenu_page('ticket', __('Ticket', 'Ticket'), 'Trạng Thái', 'manage_options', 'tic_status', 'OPTicketStatus');
+    add_submenu_page('ticket', __('Bill', 'Bill'), 'Xem', 'manage_options', 'bill_view', 'OPBillView');
+    add_submenu_page(null, __('Bill', 'Bill'), 'Chi Tiết', 'manage_options', 'bill_detail', 'OPBillDetail');
+
+    /* Package */
+    add_submenu_page('ticket', __('Package', 'Package'), 'Loại Gói', 'manage_options', 'pac_view', 'OPPackageView');
+    add_submenu_page(null, __('Package', 'Package'), 'Thêm', 'manage_options', 'pac_create', 'OPPackageCreate');
+    add_submenu_page(null, __('Package', 'Package'), 'Cập Nhật', 'manage_options', 'pac_update', 'OPPackageUpdate');
+
+}
+
+/**
+ * File Exists Output
+ */
+
+/* Contact */
+function OPContactView() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-contact-view.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-contact-view.php');
+    }
+}
+
+function OPContactDetail() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-contact-detail.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-contact-detail.php');
+    }
+}
+
+/* Event */
+function OPEventView() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-event-view.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-event-view.php');
+    }
+}
+
+function OPEventCreate() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-event-create.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-event-create.php');
+    }
+}
+
+function OPEventUpdate() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-event-update.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-event-update.php');
+    }
+}
+
+function OPEventDetail() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-event-detail.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-event-detail.php');
+    }
+}
+
+// Package
+function OPPackageView() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-package-view.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-package-view.php');
+    }
+}
+
+function OPPackageCreate() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-package-create.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-package-create.php');
+    }
+}
+
+function OPPackageUpdate() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-package-update.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-package-update.php');
+    }
+}
+
+function OPPackageDetail() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-package-detail.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-package-detail.php');
+    }
+}
+
+// Ticket
+
+function OPBillView() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-bill-view.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-bill-view.php');
+    }
+}
+
+function OPBillDetail() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-bill-detail.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-bill-detail.php');
+    }
+}
+
+function OPTicketStatus() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/view/class-ticket-status.php')) {
+        require_once(ROOT__PLUGIN__PATH . '/view/class-ticket-status.php');
+    }
+}
+
+function OPScan() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/'))
+    {
+        require_once(ROOT__PLUGIN__PATH . '/');
+    }
+}
+
+function OPChart() {
+    if(file_exists(ROOT__PLUGIN__PATH . '/'))
+    {
+        require_once(ROOT__PLUGIN__PATH . '/');
+    }
+}
+
+/**
+ * CSS & JavaScript File
+ */
+
+add_action('admin_enqueue_scripts', 'CUSAdminCSS');
+add_action('admin_enqueue_scripts', 'CUSAdminJS');
+
+function CUSAdminCSS() {
+    wp_enqueue_style('boxicons', 'https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css', array(), false);
+}
+
+function CUSAdminJS() {
+    wp_enqueue_script('jquery', 'https://code.jquery.com/jquery-3.2.1.min.js', array());
+    wp_enqueue_script('jquery-ui-js', 'https://code.jquery.com/ui/1.13.2/jquery-ui.js', array());
+}
+
 ?>
